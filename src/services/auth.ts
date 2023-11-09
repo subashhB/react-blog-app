@@ -6,6 +6,7 @@ export class AuthService {
   account;
 
   constructor() {
+    // Creating the client only when the object is created to save the resources as we won't need client and account until we need. This ensures that the account is only created when the object is made.
     this.client
       .setEndpoint(config.appwriteUrl)
       .setProject(config.appwriteProjectId);
@@ -63,5 +64,6 @@ export class AuthService {
   }
 }
 
+// We're exporting object as we won't have to create a new object everywhere
 const authService = new AuthService();
 export default authService;
