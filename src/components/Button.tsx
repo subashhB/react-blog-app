@@ -1,9 +1,9 @@
 interface ButtonProps {
   children: React.ReactNode;
   type: "button" | "submit" | "reset" | undefined;
-  bgColor?: string;
+  bgColor?: string | undefined;
   textColor?: string;
-  className?: string;
+  className: string;
 }
 const Button = ({
   children,
