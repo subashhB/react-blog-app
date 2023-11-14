@@ -4,9 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../hooks/reduxHooks";
 import authService from "../services/auth";
 import { login as authLogin } from "../store/authSlice";
-import Input from "./Input";
-import Logo from "./Logo";
-import Button from "./Button";
+import { Logo, Input, Button } from ".";
 
 interface LoginValues {
   email: string;

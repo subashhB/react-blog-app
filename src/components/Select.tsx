@@ -3,7 +3,7 @@ import { useId, Ref, forwardRef, SelectHTMLAttributes } from "react";
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   options: string[];
   label: string;
-  className: string;
+  className?: string;
 }
 const Select = (
   { options, label, className = "", ...props }: SelectProps,

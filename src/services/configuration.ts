@@ -1,8 +1,9 @@
 import { Client, Databases, ID, Query, Storage } from "appwrite";
 import config from "../config/config";
 
-enum Status {
+export enum Status {
   "active",
+  "inactive",
 }
 
 export class Service {
@@ -56,7 +57,7 @@ export class Service {
       title: string;
       content: string;
       status: Status;
-      featuredImage: string;
+      featuredImage: string | undefined;
     }
   ) {
     try {

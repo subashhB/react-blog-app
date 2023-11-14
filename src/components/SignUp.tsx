@@ -4,9 +4,7 @@ import { useForm } from "react-hook-form";
 import authService from "../services/auth";
 import { useAppDispatch } from "../hooks/reduxHooks";
 import { login } from "../store/authSlice";
-import Logo from "./Logo";
-import Input from "./Input";
-import Button from "./Button";
+import { Input, Button, Logo } from ".";
 
 interface SignUpValues {
   email: string;
