@@ -29,40 +29,46 @@ const PostForm = ({ post }: PostFormProps) => {
     });
   const navigate = useNavigate();
   const userData = useAppSelector((state) => state.auth.userData);
+  console.log(userData);
 
   const submit = async (data: FormValues) => {
-    if (post) {
-      // update logic
-      const file = data.image[0]
-        ? await service.uploadFile(data.image[0])
-        : null;
+    if (userData) {
+      if (post) {
+        // update logic
+        const file = data.image[0]
+          ? await service.uploadFile(data.image[0])
+          : null;
 
-      if (file) {
-        //If there's already an image during update, delete that image so that we can replace it with the new image.
-        await service.deleteFile(post.featuredImage);
-      }
+        if (file) {
+          //If there's already an image during update, delete that image so that we can replace it with the new image.
+          await service.deleteFile(post.featuredImage);
+        }
 
-      const dbPost = await service.updatePost(post.$id, {
-        ...data,
-        featuredImage: file ? file.$id : undefined,
-      });
-
-      if (dbPost) {
-        navigate(`/post/${dbPost.$id}`);
-      }
-    } else {
-      // Create Logic
-      const file = await service.uploadFile(data.image[0]);
-
-      if (file && userData) {
-        const fileId = file.$id;
-        const dbPost = await service.createPost({
+        const dbPost = await service.updatePost(post.$id, {
           ...data,
-          featuredImage: fileId,
-          userId: userData.$id,
+          featuredImage: file ? file.$id : undefined,
         });
+
         if (dbPost) {
           navigate(`/post/${dbPost.$id}`);
+        }
+      } else {
+        // Create Logic
+        const file = await service.uploadFile(data.image[0]);
+        console.log(file);
+        console.log(userData);
+
+        if (file) {
+          const fileId = file.$id;
+          const dbPost = await service.createPost({
+            ...data,
+            featuredImage: fileId,
+            userId: userData?.$id,
+          });
+          console.log(data);
+          if (dbPost) {
+            navigate(`/post/${dbPost.$id}`);
+          }
         }
       }
     }
@@ -73,7 +79,7 @@ const PostForm = ({ post }: PostFormProps) => {
       return value
         .trim()
         .toLowerCase()
-        .replace(/^[a-zA-Z\d\s]+/g, "-")
+        .replace(/[^a-zA-Z\d\s]+/g, "-")
         .replace(/\s/g, "-");
     return "";
   }, []);
@@ -98,8 +104,14 @@ const PostForm = ({ post }: PostFormProps) => {
         />
         <Input
           label="Slug: "
+          placeholder="Slug"
           className="mb-4"
           {...register("slug", { required: true })}
+          onChange={(e) => {
+            setValue("slug", slugTransform(e.currentTarget.value), {
+              shouldValidate: true,
+            });
+          }}
         />
         <RTE
           label="Content: "

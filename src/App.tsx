@@ -3,6 +3,7 @@ import { useAppDispatch } from "./hooks/reduxHooks";
 import authService from "./services/auth";
 import { login, logout } from "./store/authSlice";
 import { Footer, Header } from "./components";
+import { Outlet } from "react-router-dom";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -13,6 +14,7 @@ function App() {
       .getCurrentUser()
       .then((userData) => {
         if (userData) {
+          console.log(userData);
           dispatch(login(userData));
         } else {
           dispatch(logout());
@@ -29,7 +31,9 @@ function App() {
     <div className="min-h-screen flex flex-wrap content-between bg-background">
       <div className="w-full block">
         <Header />
-        <main>TODO: {/* Outlet */}</main>
+        <main>
+          <Outlet />
+        </main>
         <Footer />
       </div>
     </div>
