@@ -4,16 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../hooks/reduxHooks";
 import { useCallback, useEffect } from "react";
 import { Button, Input, RTE, Select } from "..";
+import { Models } from "appwrite";
 
 interface PostFormProps {
-  post: {
-    $id: string;
-    title: string;
-    slug: string;
-    content: string;
-    status?: Status;
-    featuredImage: string;
-  };
+  post?: Models.Document;
 }
 
 interface FormValues {

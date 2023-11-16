@@ -1,9 +1,10 @@
-interface ButtonProps {
+import { ButtonHTMLAttributes } from "react";
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
-  type: "button" | "submit" | "reset" | undefined;
+  type?: "button" | "submit" | "reset" | undefined;
   bgColor?: string | undefined;
   textColor?: string;
-  className: string;
+  className?: string;
 }
 const Button = ({
   children,
