@@ -13,7 +13,7 @@ const Select = (
   return (
     <div className="w-full">
       {label && (
-        <label id={id} className="inline-block mb-1 pl-1">
+        <label htmlFor={id} className="inline-block mb-1 pl-1">
           {label}
         </label>
       )}
